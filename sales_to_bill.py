@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 from datetime import datetime, timedelta
+import openpyxl
+from openpyxl.styles import PatternFill
 
 # get file paths
 sales_path = input("Enter path to Sales Sheet: ")
@@ -71,10 +73,6 @@ new_filename = f"{filename}_{dt_string}{ext}"
 styled_bill_sheet.to_excel(new_filename, index=False)
 print(f"Updated Bill Trigger saved as {new_filename}")
 
-# open the newly created excel file
-import openpyxl
-from openpyxl.styles import PatternFill
-
 # load the workbook
 workbook = openpyxl.load_workbook(new_filename)
 
@@ -94,10 +92,9 @@ for row in worksheet.iter_rows(min_row=2):
     for cell in row:
         if fill_color:
             cell.fill = fill_color
-
+            
 # save the updated workbook
 workbook.save(new_filename)
-
 # print a message to confirm completion
 print("Updated Bill Trigger saved with colored rows.")
 os.startfile(new_filename)
